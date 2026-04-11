@@ -6,26 +6,27 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import News from 'pages/client/news.tsx';
+import Login from 'pages/admin/login.tsx';
+import 'styles/global.css';  
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout/>,
-    children :[
-            {
-                path: "/news",
-                element: <div>News</div>,
-              },
+    {
+      path: "/",
+      element: <Layout/>,
+      children :[
               {
-                path: "/login",
-                element: <div>Login</div>,
-              },
-            {
-                path: "/register",
-                element: <div>Register</div>,
-              },
-    ],
-  }  
+                  path: "/news",
+                  element: <News /> 
+                },
+
+      ],
+    } ,
+      {
+      path: "/login",
+      element: <Login />
+},
+
 ]);
 
 createRoot(document.getElementById('root')!).render(
