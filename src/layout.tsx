@@ -6,10 +6,10 @@ function Layout() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   return (
     <div>
-          <AppHeader
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-          />
+      <AppHeader
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
          <Outlet />
     </div>
   )
