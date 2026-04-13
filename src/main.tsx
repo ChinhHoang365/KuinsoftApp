@@ -11,6 +11,8 @@ import Login from 'pages/admin/login.tsx';
 import 'styles/global.css';  
 import News from 'pages/client/news.tsx';
 import HomePage from 'pages/client/home.tsx';
+import RegisterPage from 'pages/client/register.tsx';
+import { App } from 'antd';
 
 const router = createBrowserRouter([
     {
@@ -32,12 +34,16 @@ const router = createBrowserRouter([
       path: "/login",
       element: <Login />
 },
-
+      {
+      path: "/register",
+      element: <RegisterPage />
+},
 ]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-   
+   <App>
        <RouterProvider router={router} />
+    </App>
   </StrictMode>,
 )

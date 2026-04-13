@@ -7,6 +7,74 @@ declare global {
         statusCode: number | string;
         data?: T;
     }
+    interface IMess{
+        code: string;
+        message: string;
+    }
+    interface ILocationPermissions{
+      userID: number;
+      locationID: number;
+      location: string;
+      address: string;
+      email: string;
+      tel: string;
+      groupID: number;
+      groupName:string;
+      accountTypeID: number;
+      accountTypeName: string;
+    }
+    interface ILogin {
+        token: string;
+        userInfo: {
+            userID: number;
+            userName: string;
+            isWindowAuthenticated: boolean;
+            firstName: string;
+            fullName: string;
+            remarks: string;
+            teacherID: number;
+            studentID: number;
+            isActive: boolean;
+            smsUsername: string;
+            smsPassword: string;
+            photo: string;
+            accountTypeID: number;
+            accountTypeName: string;
+        };
+        locationPermissions :       {
+            userID: number;
+            locationID: number;
+            location: string;
+            address: string;
+            email: string;
+            tel: string;
+            groupID: number;
+            groupName:string;
+            accountTypeID: number;
+            accountTypeName: string;
+        }[];
+        functionByGroup :       {
+            recordID: number;
+            groupID: number;
+            groupName: string;
+            moduleID: number;
+            module: string;
+            functionGroupID: number;
+            functionGroup: string;
+            functionID: number;
+            functionName: string;
+            cRead: boolean;
+            cModify: boolean;
+            cFull: boolean;
+            type: string; 
+            formName: string;
+            unselectedImageIndex: number;
+            selectedImageIndex: number;
+            sort: number;
+            description: string;
+            inActive: boolean;
+        }[];
+    }
 
     interface IModelPaginate<T> {
         meta: {
@@ -18,17 +86,7 @@ declare global {
         result: T[]
     }
 
-    interface ILogin {
-        access_token: string;
-        user: {
-            email: string;
-            phone: string;
-            fullName: string;
-            role: string;
-            avatar: string;
-            id: string;
-        }
-    }
+
 
     interface IRegister {
         _id: string;
