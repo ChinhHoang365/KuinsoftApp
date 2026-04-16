@@ -4,7 +4,7 @@ import './login.scss';
 import { useState } from 'react';
 import type { FormProps } from 'antd';
 import { loginAPI } from 'services/admin/users.api';
-//import { useCurrentApp } from 'components/context/app.context';
+import { useCurrentApp } from 'components/context/app.context';
 
 type FieldType = {
     username: string;
@@ -26,20 +26,23 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
     const { message, notification } = App.useApp();
-    //const { setIsAuthenticated, setUser } = useCurrentApp();
+    const { setIsAuthenticated, setUserInfo } = useCurrentApp();
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
         const { username, password, locationid } = values;
 
         setIsSubmit(true);
         //const res = await loginAPI(username, password);
+       // console.log('Login request:', { username, password, locationid });
          const res = await loginAPI(username, password, locationid);
-
+//console.log('Login response:', res);
         setIsSubmit(false);
         if (res?.data) {
-           // setIsAuthenticated(true);
-           // setUser(res.data.user)
+            setIsAuthenticated(true);
+            setUserInfo(res.data.userInfo);
+
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem('username', res.data.userInfo.userName);
             message.success('Login successful!');
             navigate('/')
         } else {
@@ -47,21 +50,17 @@ const LoginPage = () => {
                 message: "Error occurred",
                 description:
                     res.message && Array.isArray(res.message) ? res.message[0] : res.message,
-                duration: 1
+                duration: 2
             })
         }
     };
-const [ selectedLocation, setSelectedLocation] = useState<string>('');
- const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLocation(event.target.value);
-  };
     return (
         <div className="login-page">
             <main className="main">
                 <div className="container">
                     <section className="wrapper">
                         <div className="heading">
-                            <h2 className="text text-large">Login</h2>
+                            <h2 className="text text-large">Kuin Login</h2>
                             <Divider />
 
                         </div>
@@ -91,24 +90,25 @@ const [ selectedLocation, setSelectedLocation] = useState<string>('');
                                 <Input.Password />
                             </Form.Item>
 
-                            <Form.Item
+                            <Form.Item<FieldType>
                                 name="locationid"
                                 label="Location"
                                 rules={[{ required: true, message: 'Please select Location!' }]}
                             >
-                                <select 
-                                    id="locationid" 
-                                    value={selectedLocation} 
-                                    onChange={handleChange}
-                                >
-                                    <option value="">--Select Location--</option>
-                                    {locationList.map((loc) => (
-                                    <option key={loc.locationid} value={loc.locationid}>
-                                        {loc.locationname}
-                                    </option>
-                                    ))}
-                                </select>
-                             </Form.Item>
+                                <Select
+                                    placeholder="--Select Location--"
+                                    options={locationList.map((loc) => ({
+                                        label: loc.locationname,
+                                        value: loc.locationid,
+                                    }))}
+                                    showSearch
+                                    optionFilterProp="label"
+                                    filterOption={(input, option) =>
+                                        typeof option?.label === 'string' &&
+                                        option.label.toLowerCase().includes(input.toLowerCase())
+                                    }
+                                />
+                            </Form.Item>
                             <Form.Item>
                                 <Button type="primary" htmlType="submit" loading={isSubmit}>
                                     Login

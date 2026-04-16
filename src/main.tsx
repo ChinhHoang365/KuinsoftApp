@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import Layout from './layout.tsx'
+//import Layout from './layout.tsx'
 
 import {
   createBrowserRouter,
@@ -10,22 +10,37 @@ import {
 import Login from 'pages/admin/login.tsx';
 import 'styles/global.css';  
 import News from 'pages/client/news.tsx';
-import HomePage from 'pages/client/home.tsx';
-import RegisterPage from 'pages/client/register.tsx';
+import HomePage from 'pages/home/homepage.tsx';
+//import RegisterPage from 'pages/client/register.tsx';
 import { App } from 'antd';
+import { AppProvider } from 'components/context/app.context.tsx';
+import ProtectedRoute from 'components/auth';
+import LayoutAdmin from './layout.admin.tsx';
 
 const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout/>,
+    //  element: <Layout/>,
+     element: <LayoutAdmin/>,
       children :[
         {
           index: true, 
-          element: <HomePage />
+          element:
+          (  
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          )
         },
         {
             path: "/news",
-            element: <News /> 
+            element: 
+            (
+            <ProtectedRoute>
+              <News /> 
+            </ProtectedRoute>
+          )
+           
          },
 
       ],
@@ -33,17 +48,17 @@ const router = createBrowserRouter([
       {
       path: "/login",
       element: <Login />
-},
-      {
-      path: "/register",
-      element: <RegisterPage />
-},
+    },
+
 ]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
    <App>
-       <RouterProvider router={router} />
+    <AppProvider>
+       <RouterProvider router={router} />\
+    </AppProvider>
+    
     </App>
   </StrictMode>,
 )

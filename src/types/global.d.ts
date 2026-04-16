@@ -94,17 +94,25 @@ declare global {
         fullName: string;
     }
 
-    interface IUser {
-        email: string;
-        phone: string;
-        fullName: string;
-        role: string;
-        avatar: string;
-        id: string;
+    interface IUserInfo {
+            userID: number;
+            userName: string;
+            isWindowAuthenticated: boolean;
+            firstName: string;
+            fullName: string;
+            remarks: string;
+            teacherID: number;
+            studentID: number;
+            isActive: boolean;
+            smsUsername: string;
+            smsPassword: string;
+            photo: string;
+            accountTypeID: number;
+            accountTypeName: string;
     }
 
     interface IFetchAccount {
-        user: IUser
+        user: IUserInfo
     }
 
     interface IUserTable {

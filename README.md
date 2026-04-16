@@ -18,3 +18,6 @@ npm install --save-exact axios@1.7.7
 - Tập trung config lại 1 file
 - Can thiệp vào request (trước khi gửi lên server backend)
 - Can thiệp vào response (trước khi trả về cho client)
+
+Cai dat Spinner
+npm install --save-exact react-spinners@0.14.1
