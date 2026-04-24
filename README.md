@@ -21,3 +21,7 @@ npm install --save-exact axios@1.7.7
 
 Cai dat Spinner
 npm install --save-exact react-spinners@0.14.1
+
+Cài đặt thư viện:
+
+npm i --save-exact @ant-design/pro-components@2.8.

@@ -127,6 +127,36 @@ declare global {
         updatedAt: Date;
     }
 
+    interface IUserMenuChild {
+        ModuleID: number;
+        Module: string;
+
+        FunctionID: number;
+        FunctionName: string;
+
+        FunctionGroupID: number;
+        FunctionGroup: string;
+        CRead: boolean;
+        CModify: boolean;
+        CFull: boolean;
+
+        UserID: number;
+        LocationID: number;
+        MenuType: number;
+        WebUrl: string;
+    }
+
+     interface IUserMenuMaster {
+        ModuleID: number;
+        Module: string;
+        UserID: number;
+        LocationID: number;
+        Sort: number;
+        MenuType: number;
+         children: IUserMenuChild  
+     }
+
+    //-----------------------
     interface IResponseImport {
         countSuccess: number;
         countError: number;

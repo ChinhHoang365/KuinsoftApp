@@ -35,8 +35,9 @@ export const AppProvider = (props: TProps) => {
             const carts = localStorage.getItem("carts");
             if (res.data) {
              
-                setUserInfo(res.data);
-  // console.log("toi day roi ne", JSON.stringify(res.data))
+                setUserInfo(res.data.userInfo);
+//    console.log("toi day roi ne**", JSON.stringify(res.data))
+//    console.log("toi day roi ne userInfo**", userInfo)
                 setIsAuthenticated(true);
                 if (carts) {
                     setCarts(JSON.parse(carts))

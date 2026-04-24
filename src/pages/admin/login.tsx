@@ -1,5 +1,5 @@
 import { App, Button, Divider, Form, Input , Select} from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useRevalidator } from 'react-router-dom';
 import './login.scss';
 import { useState } from 'react';
 import type { FormProps } from 'antd';
@@ -9,33 +9,35 @@ import { useCurrentApp } from 'components/context/app.context';
 type FieldType = {
     username: string;
     password: string;
-    locationid: number
+    locationId: number
 };
 
 interface ILocation {
-  locationid: number;
-  locationname: string;
+  locationId: number;
+  locationName: string;
 };
 const locationList: ILocation[] = [
-  { locationid: 1, locationname: 'ILC Binh Duong' },
-  { locationid: 2, locationname: 'Hồ Chí Minh' },
-  { locationid: 3, locationname: 'Đà Nẵng' },
+  { locationId: 1, locationName: 'ILC Binh Duong' },
+  { locationId: 2, locationName: 'Hồ Chí Minh' },
+  { locationId: 3, locationName: 'Đà Nẵng' },
 ];
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
     const { message, notification } = App.useApp();
+  
+  
     const { setIsAuthenticated, setUserInfo } = useCurrentApp();
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-        const { username, password, locationid } = values;
+        const { username, password, locationId } = values;
 
         setIsSubmit(true);
         //const res = await loginAPI(username, password);
-       // console.log('Login request:', { username, password, locationid });
-         const res = await loginAPI(username, password, locationid);
-//console.log('Login response:', res);
+        console.log('Login request:', { username, password, locationId });
+         const res = await loginAPI(username, password, locationId);
+console.log('Login response:', res);
         setIsSubmit(false);
         if (res?.data) {
             setIsAuthenticated(true);
@@ -43,6 +45,10 @@ const LoginPage = () => {
 
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('username', res.data.userInfo.userName);
+
+            localStorage.setItem('userId', res.data.userInfo.userID.toString());
+            localStorage.setItem('locationId', locationId.toString());
+
             message.success('Login successful!');
             navigate('/')
         } else {
@@ -91,15 +97,15 @@ const LoginPage = () => {
                             </Form.Item>
 
                             <Form.Item<FieldType>
-                                name="locationid"
+                                name="locationId"
                                 label="Location"
                                 rules={[{ required: true, message: 'Please select Location!' }]}
                             >
                                 <Select
                                     placeholder="--Select Location--"
                                     options={locationList.map((loc) => ({
-                                        label: loc.locationname,
-                                        value: loc.locationid,
+                                        label: loc.locationName,
+                                        value: loc.locationId,
                                     }))}
                                     showSearch
                                     optionFilterProp="label"

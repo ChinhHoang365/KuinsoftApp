@@ -9,29 +9,91 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     SearchOutlined,
+    MailOutlined,
+    SettingOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Dropdown, Space, Avatar, Input , Button} from 'antd';
-import { Outlet, useLocation } from "react-router-dom";
+import { Layout, Menu, Dropdown, Space, Avatar, Input , Button, Spin} from 'antd';
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useCurrentApp } from './components/context/app.context';
 import type { MenuProps } from 'antd';
 
 
-//import { logoutAPI } from 'services/api';
+import { userMenuAPI } from 'services/admin/users.api';
+
 type MenuItem = Required<MenuProps>['items'][number];
 
 const { Content, Footer, Sider } = Layout;
 
-
+ 
 const LayoutAdmin = () => {
+    const navigate = useNavigate();
+    //-----------------
+    // const [items, setItems] = useState<MenuItem[]>([]);
+    // const [loading, setLoading] = useState<boolean>(true);
+   
+    // useEffect(() => {
+    // const fetchMenuItems = async () => {
+    // try {
+
+    //     // Replace with your actual API endpoint
+    //    
+      
+    //     const data = response.data;
+
+    //     // Map API data to Ant Design MenuItem structure
+    //     const formattedItems: MenuItem[] = data.map((item: any) => ({
+    //     label: item.title, // 'label' is what users see
+    //     key: item.id.toString(), // 'key' must be a unique string
+    //     icon: getIcon(item.type), // Optional: Map a string to an Icon component
+    //     children: item.subItems ? item.subItems.map((sub: any) => ({
+    //         label: sub.title,
+    //         key: sub.id.toString(),
+    //     })) : undefined,
+    //     }));
+
+    //     setItems(formattedItems);
+    // } catch (error) {
+    //     message.error('Failed to load menu data');
+    // } finally {
+    //     setLoading(false);
+    // }
+    // };
+
+    // fetchMenuItems();
+    // }, []);
+
+    // // Optional helper to map API strings to specific Ant Design Icons
+    // const getIcon = (type: string) => {
+    //     switch (type) {
+    //     case 'mail': return <MailOutlined />;
+    //     case 'app': return <AppstoreOutlined />;
+    //     default: return <SettingOutlined />;
+    //     }
+    // };
+
+    // // const onClick: MenuProps['onClick'] = (e) => {
+    // //     console.log('Clicked menu item:', e.key);
+    // // };
+
+    // if (loading) return <Spin size="large" style={{ display: 'block', margin: '50px auto' }} />;
+
+    //----het menu dong----------------------
+
     const [collapsed, setCollapsed] = useState(false);
     const [activeMenu, setActiveMenu] = useState('');
     const {
-        user, setUser, setIsAuthenticated, isAuthenticated,
+        userInfo, setUserInfo, setIsAuthenticated, isAuthenticated,
         setCarts
     } = useCurrentApp();
 
     const location = useLocation();
+
+    //-----get data menu-------------
+    // const userId = localStorage.getItem("userId");
+    // const locationId = localStorage.getItem("locationId");
+    // const response = await userMenuAPI(userId,  locationId);
+  //---End
 
     const items: MenuItem[] = [
         {
@@ -66,21 +128,27 @@ const LayoutAdmin = () => {
     ];
 
 
-    useEffect(() => {
-        const active: any = items.find(item => location.pathname === (item!.key as any)) ?? "/admin";
-        setActiveMenu(active.key)
-    }, [location])
+    // useEffect(() => {
+    //     const active: any = items.find(item => location.pathname === (item!.key as any)) ?? "/admin";
+    //     setActiveMenu(active.key)
+    // }, [location])
 
-    const handleLogout = async () => {
+   
+    const handleLogout =  () => {
         //todo
         // const res = await logoutAPI();
         // if (res.data) {
-        //     setUser(null);
-        //     setCarts([]);
-        //     setIsAuthenticated(false);
-        //     localStorage.removeItem("access_token");
-        //     localStorage.removeItem("carts")
-        // }
+
+            setUserInfo(null);
+            setCarts([]);
+            setIsAuthenticated(false);
+         
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("carts")
+            localStorage.removeItem("userId");
+            localStorage.removeItem("locationId");
+             navigate('/login') 
+        //}
     }
 
 
@@ -105,8 +173,8 @@ const LayoutAdmin = () => {
         },
 
     ];
-
-    const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${user?.avatar}`;
+//avarta chua có url
+    const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${userInfo?.firstName}.jpg`;
 
     if (isAuthenticated === false) {
         return (
@@ -114,15 +182,15 @@ const LayoutAdmin = () => {
         )
     }
 
-    const isAdminRoute = location.pathname.includes("admin");
-    if (isAuthenticated === true && isAdminRoute === true) {
-        const role = user?.role;
-        if (role === "USER") {
-            return (
-                <Outlet />
-            )
-        }
-    }
+    // const isAdminRoute = location.pathname.includes("admin");
+    // if (isAuthenticated === true && isAdminRoute === true) {
+    //     const role = userInfo?.role;
+    //     if (role === "USER") {
+    //         return (
+    //             <Outlet />
+    //         )
+    //     }
+    // }
 
     return (
         <>
@@ -173,7 +241,7 @@ const LayoutAdmin = () => {
                         <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
                             <Space style={{ cursor: "pointer" }}>
                                 <Avatar src={urlAvatar} />
-                                {user?.fullName}
+                                {userInfo?.fullName}
                             </Space>
                         </Dropdown>
                     </div>
