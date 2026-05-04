@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {
     AppstoreOutlined,
-    ExceptionOutlined,
-    HeartTwoTone,
-    TeamOutlined,
-    UserOutlined,
-    DollarCircleOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     SearchOutlined,
     MailOutlined,
     SettingOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Dropdown, Space, Avatar, Input , Button, Spin} from 'antd';
+import { Layout, Menu, Dropdown, Space, Avatar, Input , Button, Spin, message} from 'antd';
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useCurrentApp } from './components/context/app.context';
@@ -20,66 +15,21 @@ import type { MenuProps } from 'antd';
 
 
 import { userMenuAPI } from 'services/admin/users.api';
+// import DynamicMenu from './components/layout/dynamic.menu';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-const { Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
+
+ // const [openModule, setOpenModule] = useState<number | null>(null);
 
  
 const LayoutAdmin = () => {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [menuData, setMenuData] = useState<IUserMenuMaster[]>([]);
+    const [formattedItems, setFormattedItems] = useState<MenuItem[]>([]);
+
     const navigate = useNavigate();
-    //-----------------
-    // const [items, setItems] = useState<MenuItem[]>([]);
-    // const [loading, setLoading] = useState<boolean>(true);
-   
-    // useEffect(() => {
-    // const fetchMenuItems = async () => {
-    // try {
-
-    //     // Replace with your actual API endpoint
-    //    
-      
-    //     const data = response.data;
-
-    //     // Map API data to Ant Design MenuItem structure
-    //     const formattedItems: MenuItem[] = data.map((item: any) => ({
-    //     label: item.title, // 'label' is what users see
-    //     key: item.id.toString(), // 'key' must be a unique string
-    //     icon: getIcon(item.type), // Optional: Map a string to an Icon component
-    //     children: item.subItems ? item.subItems.map((sub: any) => ({
-    //         label: sub.title,
-    //         key: sub.id.toString(),
-    //     })) : undefined,
-    //     }));
-
-    //     setItems(formattedItems);
-    // } catch (error) {
-    //     message.error('Failed to load menu data');
-    // } finally {
-    //     setLoading(false);
-    // }
-    // };
-
-    // fetchMenuItems();
-    // }, []);
-
-    // // Optional helper to map API strings to specific Ant Design Icons
-    // const getIcon = (type: string) => {
-    //     switch (type) {
-    //     case 'mail': return <MailOutlined />;
-    //     case 'app': return <AppstoreOutlined />;
-    //     default: return <SettingOutlined />;
-    //     }
-    // };
-
-    // // const onClick: MenuProps['onClick'] = (e) => {
-    // //     console.log('Clicked menu item:', e.key);
-    // // };
-
-    // if (loading) return <Spin size="large" style={{ display: 'block', margin: '50px auto' }} />;
-
-    //----het menu dong----------------------
-
     const [collapsed, setCollapsed] = useState(false);
     const [activeMenu, setActiveMenu] = useState('');
     const {
@@ -89,68 +39,71 @@ const LayoutAdmin = () => {
 
     const location = useLocation();
 
-    //-----get data menu-------------
-    // const userId = localStorage.getItem("userId");
-    // const locationId = localStorage.getItem("locationId");
-    // const response = await userMenuAPI(userId,  locationId);
-  //---End
+    useEffect(() => {
+        const fetchMenuItems = async () => {
+            try {
+                const userId = localStorage.getItem("userId");
+                const locationIdStr = localStorage.getItem("locationId");
 
-    const items: MenuItem[] = [
-        {
-            label: <Link to='/admin'>Dashboard</Link>,
-            key: '/admin',
-            icon: <AppstoreOutlined />,
+              //  console.log('Fetching menu items with userId:', userId, 'and locationId:', locationIdStr); // Debug log
+                if (!userId || !locationIdStr) {
+                    message.error('User not authenticated');
+                    return;
+                }
+                const locationId = parseInt(locationIdStr);
+                const response = await userMenuAPI(userId, locationId);
+                const data = response.data || [];
+               // console.log('Menu data fetched:', response); // Debug log
+                setMenuData(data);
+ console.log('lam o day chua');
+                // Map API data to Ant Design MenuItem structure
+                const formatted: MenuItem[] = menuData.map((item) => ({
+                    label: item.module, // 'label' is what users see
+                    key: item.moduleID.toString(), // 'key' must be a unique string
+                    icon: getIcon("mail"), // Optional: Map a string to an Icon component
+                    children: item.children ? item.children.map((child) => ({
+                        label: child.functionName,
+                        key: child.functionID.toString(),
+                    })) : undefined,
+                }));
 
-        },
-        {
-            label: <span>Manage Users</span>,
-            key: '/admin/user',
-            icon: <UserOutlined />,
-            children: [
-                {
-                    label: <Link to='/admin/user'>CRUD</Link>,
-                    key: '/admin/user',
-                    icon: <TeamOutlined />,
-                },
-            ]
-        },
-        {
-            label: <Link to='/admin/book'>Manage Books</Link>,
-            key: '/admin/book',
-            icon: <ExceptionOutlined />
-        },
-        {
-            label: <Link to='/admin/order'>Manage Orders</Link>,
-            key: '/admin/order',
-            icon: <DollarCircleOutlined />
-        },
+                setFormattedItems(formatted);
+            } catch (err) {
+                console.error('Failed to load menu data', err);
+                message.error('Failed to load menu data');
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    ];
+        fetchMenuItems();
+    }, []);
 
+    // Optional helper to map API strings to specific Ant Design Icons
+    const getIcon = (type: string) => {
+        switch (type) {
+            case 'mail': return <MailOutlined />;
+            case 'app': return <AppstoreOutlined />;
+            default: return <SettingOutlined />;
+        }
+    };
 
-    // useEffect(() => {
-    //     const active: any = items.find(item => location.pathname === (item!.key as any)) ?? "/admin";
-    //     setActiveMenu(active.key)
-    // }, [location])
+    useEffect(() => {
+        const active = formattedItems.find(item => location.pathname === item.key)?.key || "/admin";
+        setActiveMenu(active);
+    }, [location, formattedItems]);
 
-   
-    const handleLogout =  () => {
-        //todo
-        // const res = await logoutAPI();
-        // if (res.data) {
+    const handleLogout = () => {
+        setUserInfo(null);
+        setCarts([]);
+        setIsAuthenticated(false);
 
-            setUserInfo(null);
-            setCarts([]);
-            setIsAuthenticated(false);
-         
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("carts")
-            localStorage.removeItem("userId");
-            localStorage.removeItem("locationId");
-             navigate('/login') 
-        //}
-    }
-
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("carts");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("locationId");
+        navigate('/login');
+    };
 
     const itemsDropdown = [
         {
@@ -171,15 +124,16 @@ const LayoutAdmin = () => {
             >logout</label>,
             key: 'logout',
         },
-
     ];
-//avarta chua có url
-    const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${userInfo?.firstName}.jpg`;
+
+    const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${userInfo?.userID}.jpg`;
+
+    if (loading) return <Spin size="large" style={{ display: 'block', margin: '50px auto' }} />;
 
     if (isAuthenticated === false) {
         return (
             <Outlet />
-        )
+        );
     }
 
     // const isAdminRoute = location.pathname.includes("admin");
@@ -207,10 +161,9 @@ const LayoutAdmin = () => {
                         Admin
                     </div>
                     <Menu
-                        // defaultSelectedKeys={[activeMenu]}
                         selectedKeys={[activeMenu]}
                         mode="inline"
-                        items={items}
+                        items={formattedItems}
                         onClick={(e) => setActiveMenu(e.key)}
                     />
                 </Sider>
@@ -240,8 +193,9 @@ const LayoutAdmin = () => {
 
                         <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
                             <Space style={{ cursor: "pointer" }}>
-                                <Avatar src={urlAvatar} />
-                                {userInfo?.fullName}
+                                 <Avatar  />
+                                {/* <Avatar src={urlAvatar} />
+                                {userInfo?.fullName} */}
                             </Space>
                         </Dropdown>
                     </div>

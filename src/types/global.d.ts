@@ -128,31 +128,31 @@ declare global {
     }
 
     interface IUserMenuChild {
-        ModuleID: number;
-        Module: string;
+        moduleID: number;
+        module: string;
 
-        FunctionID: number;
-        FunctionName: string;
+        functionID: number;
+        functionName: string;
 
-        FunctionGroupID: number;
-        FunctionGroup: string;
-        CRead: boolean;
-        CModify: boolean;
-        CFull: boolean;
+        functionGroupID: number;
+        functionGroup: string;
+        cRead: boolean;
+        cModify: boolean;
+        cFull: boolean;
 
-        UserID: number;
-        LocationID: number;
-        MenuType: number;
-        WebUrl: string;
+        userID: number;
+        locationID: number;
+        menuType: number;
+        webUrl: string;
     }
 
      interface IUserMenuMaster {
-        ModuleID: number;
-        Module: string;
-        UserID: number;
-        LocationID: number;
-        Sort: number;
-        MenuType: number;
+        moduleID: number;
+        module: string;
+        userID: number;
+        locationID: number;
+        sort: number;
+        menuType: number;
          children: IUserMenuChild  
      }
 
