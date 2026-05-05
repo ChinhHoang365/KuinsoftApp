@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import {
     AppstoreOutlined,
+<<<<<<< HEAD
     TeamOutlined,
     UserOutlined,
+=======
+>>>>>>> e976b736e645fc2d31a1cf98b2f2d763b57ee696
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     SearchOutlined,
@@ -16,23 +19,56 @@ import {
     HomeOutlined,
     RightOutlined
 } from '@ant-design/icons';
+<<<<<<< HEAD
 import { Layout, Menu, Dropdown, Space, Avatar, Input, Button, Typography, Badge } from 'antd';
+=======
+import { Layout, Menu, Dropdown, Space, Avatar, Input , Button, Spin, message} from 'antd';
+>>>>>>> e976b736e645fc2d31a1cf98b2f2d763b57ee696
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useCurrentApp } from './components/context/app.context';
 import type { MenuProps } from 'antd';
 
+<<<<<<< HEAD
 const { Content, Sider } = Layout;
 const { Text } = Typography;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
+=======
+
+import { userMenuAPI } from 'services/admin/users.api';
+// import DynamicMenu from './components/layout/dynamic.menu';
+
+type MenuItem = Required<MenuProps>['items'][number];
+
+const { Content, Sider } = Layout;
+
+ // const [openModule, setOpenModule] = useState<number | null>(null);
+
+ 
+>>>>>>> e976b736e645fc2d31a1cf98b2f2d763b57ee696
 const LayoutAdmin = () => {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [menuData, setMenuData] = useState<IUserMenuMaster[]>([]);
+    const [formattedItems, setFormattedItems] = useState<MenuItem[]>([]);
+
     const navigate = useNavigate();
+<<<<<<< HEAD
+=======
+    const [collapsed, setCollapsed] = useState(false);
+    const [activeMenu, setActiveMenu] = useState('');
+    const {
+        userInfo, setUserInfo, setIsAuthenticated, isAuthenticated,
+        setCarts
+    } = useCurrentApp();
+
+>>>>>>> e976b736e645fc2d31a1cf98b2f2d763b57ee696
     const location = useLocation();
     const [collapsed, setCollapsed] = useState(false);
     const { userInfo, setUserInfo, setIsAuthenticated } = useCurrentApp();
 
+<<<<<<< HEAD
     const handleLogout = () => {
         setUserInfo(null);
         setIsAuthenticated(false);
@@ -107,6 +143,74 @@ const LayoutAdmin = () => {
         }
     ];
 
+=======
+    useEffect(() => {
+        const fetchMenuItems = async () => {
+            try {
+                const userId = localStorage.getItem("userId");
+                const locationIdStr = localStorage.getItem("locationId");
+
+              //  console.log('Fetching menu items with userId:', userId, 'and locationId:', locationIdStr); // Debug log
+                if (!userId || !locationIdStr) {
+                    message.error('User not authenticated');
+                    return;
+                }
+                const locationId = parseInt(locationIdStr);
+                const response = await userMenuAPI(userId, locationId);
+                const data = response.data || [];
+               // console.log('Menu data fetched:', response); // Debug log
+                setMenuData(data);
+ console.log('lam o day chua');
+                // Map API data to Ant Design MenuItem structure
+                const formatted: MenuItem[] = menuData.map((item) => ({
+                    label: item.module, // 'label' is what users see
+                    key: item.moduleID.toString(), // 'key' must be a unique string
+                    icon: getIcon("mail"), // Optional: Map a string to an Icon component
+                    children: item.children ? item.children.map((child) => ({
+                        label: child.functionName,
+                        key: child.functionID.toString(),
+                    })) : undefined,
+                }));
+
+                setFormattedItems(formatted);
+            } catch (err) {
+                console.error('Failed to load menu data', err);
+                message.error('Failed to load menu data');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMenuItems();
+    }, []);
+
+    // Optional helper to map API strings to specific Ant Design Icons
+    const getIcon = (type: string) => {
+        switch (type) {
+            case 'mail': return <MailOutlined />;
+            case 'app': return <AppstoreOutlined />;
+            default: return <SettingOutlined />;
+        }
+    };
+
+    useEffect(() => {
+        const active = formattedItems.find(item => location.pathname === item.key)?.key || "/admin";
+        setActiveMenu(active);
+    }, [location, formattedItems]);
+
+    const handleLogout = () => {
+        setUserInfo(null);
+        setCarts([]);
+        setIsAuthenticated(false);
+
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("carts");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("locationId");
+        navigate('/login');
+    };
+
+>>>>>>> e976b736e645fc2d31a1cf98b2f2d763b57ee696
     const itemsDropdown = [
         { label: 'My Profile', key: 'profile', icon: <UserOutlined /> },
         { label: 'Switch Center', key: 'center', icon: <UserSwitchOutlined /> },
@@ -118,7 +222,42 @@ const LayoutAdmin = () => {
             danger: true, 
             onClick: handleLogout 
         },
+<<<<<<< HEAD
     ];
+=======
+        {
+            label: <Link to={'/'}>My Profile</Link>,
+            key: 'home',
+        },
+        {
+            label: <label
+                style={{ cursor: 'pointer' }}
+                onClick={() => handleLogout()}
+            >logout</label>,
+            key: 'logout',
+        },
+    ];
+
+    const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${userInfo?.userID}.jpg`;
+
+    if (loading) return <Spin size="large" style={{ display: 'block', margin: '50px auto' }} />;
+
+    if (isAuthenticated === false) {
+        return (
+            <Outlet />
+        );
+    }
+
+    // const isAdminRoute = location.pathname.includes("admin");
+    // if (isAuthenticated === true && isAdminRoute === true) {
+    //     const role = userInfo?.role;
+    //     if (role === "USER") {
+    //         return (
+    //             <Outlet />
+    //         )
+    //     }
+    // }
+>>>>>>> e976b736e645fc2d31a1cf98b2f2d763b57ee696
 
     return (
         <Layout style={{ minHeight: '100vh', background: 'var(--bg-color)' }}>
@@ -144,9 +283,16 @@ const LayoutAdmin = () => {
 
                 <div className="custom-scrollbar">
                     <Menu
+<<<<<<< HEAD
                         selectedKeys={[location.pathname]}
                         mode="inline"
                         items={items}
+=======
+                        selectedKeys={[activeMenu]}
+                        mode="inline"
+                        items={formattedItems}
+                        onClick={(e) => setActiveMenu(e.key)}
+>>>>>>> e976b736e645fc2d31a1cf98b2f2d763b57ee696
                     />
                 </div>
             </Sider>
@@ -177,6 +323,7 @@ const LayoutAdmin = () => {
                         </Badge>
                         
                         <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
+<<<<<<< HEAD
                             <div style={{ 
                                 cursor: "pointer", padding: '4px 16px 4px 8px', borderRadius: 16, background: '#fff', 
                                 display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 4px 12px rgba(0,0,0,0.03)' 
@@ -188,6 +335,13 @@ const LayoutAdmin = () => {
                                 </div>
                                 <RightOutlined style={{ fontSize: 10, color: '#94a3b8', marginLeft: 4 }} rotate={90} />
                             </div>
+=======
+                            <Space style={{ cursor: "pointer" }}>
+                                 <Avatar  />
+                                {/* <Avatar src={urlAvatar} />
+                                {userInfo?.fullName} */}
+                            </Space>
+>>>>>>> e976b736e645fc2d31a1cf98b2f2d763b57ee696
                         </Dropdown>
                     </Space>
                 </div>
