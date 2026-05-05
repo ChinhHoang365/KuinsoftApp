@@ -3,7 +3,7 @@ import type { FormProps } from 'antd';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'pages/client/register.scss';
-import { loginAPI } from 'services/admin/users.api';
+import { registerAPI } from 'services/modules/admin';
 
 type FieldType = {
     fullName: string;
@@ -21,20 +21,19 @@ const RegisterPage = () => {
         setIsSubmit(true);
         const { email, fullName, password, phone } = values;
 
-  //  const res = await registerAPI(fullName, email, password, phone);
-            const res = await loginAPI("sysadmin", "chinh@1234", 1);
-   if (res.data && res.data.userInfo) {
-    //    console.log("res", res.data.userInfo.firstName);
-    //    console.log("res", res.data.userInfo );
-           //success
-           message.success("Đăng ký user thành công.");
-           navigate("/login")
-       } else {
-           //error
-           message.error(res.message);
-
-       }
-       setIsSubmit(false);
+        try {
+            const res = await registerAPI(fullName, email, password, phone);
+            if (res && res.code === 0 && res.userInfo) {
+                message.success("Đăng ký user thành công.");
+                navigate("/login");
+            } else {
+                message.error(res?.message || "Đăng ký thất bại. Vui lòng thử lại.");
+            }
+        } catch (error: any) {
+            message.error(error?.message || "Lỗi kết nối với server");
+        } finally {
+            setIsSubmit(false);
+        }
 
 
     };

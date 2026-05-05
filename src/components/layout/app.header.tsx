@@ -1,4 +1,4 @@
-import { useCurrentApp } from "components/context/app.context";
+import { useCurrentApp } from 'context';
 
 interface IProps {
     searchTerm: string;

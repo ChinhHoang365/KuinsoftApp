@@ -1,4 +1,144 @@
-*{
-margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
+:root {
+  --primary-color: #1e3a8a; /* Deep Navy Blue */
+  --primary-light: #3b82f6;
+  --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  --secondary-color: #f43f5e;
+  --accent-color: #10b981;
+  --bg-color: #eef2f6; /* Soft light gray-blue background */
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-premium: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color) !important;
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sidebar Customizations */
+.ant-layout-sider {
+  background: #ffffff !important;
+  border-right: none !important;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.03);
+  margin: 16px 0 16px 16px;
+  border-radius: var(--radius-xl);
+  height: calc(100vh - 32px) !important;
+  position: sticky !important;
+  top: 16px;
+}
+
+.ant-menu {
+  border-right: none !important;
+  padding: 0 12px;
+}
+
+.ant-menu-item {
+  border-radius: 12px !important;
+  margin: 4px 0 !important;
+  height: 48px !important;
+  line-height: 48px !important;
+  color: #64748b !important;
+}
+
+.ant-menu-item-selected {
+  background: #1e3a8a !important; /* Active blue pill */
+  color: #ffffff !important;
+}
+
+.ant-menu-item-selected a {
+  color: #ffffff !important;
+}
+
+.ant-menu-submenu-title {
+  border-radius: 12px !important;
+  margin: 4px 0 !important;
+}
+
+/* Header & Search Bar */
+.premium-header {
+  background: transparent !important;
+  padding: 0 24px !important;
+  height: 80px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.premium-search {
+  background: #ffffff !important;
+  border: none !important;
+  border-radius: 40px !important;
+  padding: 8px 24px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  width: 450px !important;
+}
+
+/* Premium Cards */
+.premium-card {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  border: none !important;
+  box-shadow: var(--shadow-premium);
+  overflow: hidden;
+}
+
+.glass-clock {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 16px 24px;
+  color: white;
+  min-width: 160px;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Ant Table Customization */
+.ant-table {
+  background: transparent !important;
+}
+
+.ant-table-thead > tr > th {
+  background: #f8fafc !important;
+  font-weight: 600 !important;
+  color: var(--text-muted) !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }

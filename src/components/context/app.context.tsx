@@ -1,7 +1,6 @@
 import { userSearchAPI } from "services/admin/users.api";
 import { createContext, useContext, useEffect, useState } from "react";
-import FadeLoader from "react-spinners/FadeLoader";
-
+import { Spin } from "antd";
 
 interface IAppContext {
     isAuthenticated: boolean;
@@ -29,21 +28,34 @@ export const AppProvider = (props: TProps) => {
 
     useEffect(() => {
         const fetchAccount = async () => {
-        
-            const res = await userSearchAPI(localStorage.getItem("username"));
-          
-            const carts = localStorage.getItem("carts");
-            if (res.data) {
-             
-                setUserInfo(res.data.userInfo);
-//    console.log("toi day roi ne**", JSON.stringify(res.data))
-//    console.log("toi day roi ne userInfo**", userInfo)
-                setIsAuthenticated(true);
-                if (carts) {
-                    setCarts(JSON.parse(carts))
-                }
+            const token = localStorage.getItem("token");
+            const username = localStorage.getItem("username");
+
+            // Skip API call if not logged in
+            if (!token || !username) {
+                setIsAppLoading(false);
+                return;
             }
-            setIsAppLoading(false)
+
+            try {
+                const res = await userSearchAPI(username);
+                const carts = localStorage.getItem("carts");
+                if (res) {
+                    // Handle both response formats
+                    const userData = res.userInfo || res;
+                    if (userData) {
+                        setUserInfo(userData);
+                        setIsAuthenticated(true);
+                    }
+                    if (carts) {
+                        setCarts(JSON.parse(carts));
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to fetch user info", error);
+            } finally {
+                setIsAppLoading(false);
+            }
         }
 
         fetchAccount();
@@ -66,10 +78,7 @@ export const AppProvider = (props: TProps) => {
                     left: "50%",
                     transform: "translate(-50%, -50%)"
                 }}>
-                     <FadeLoader
-                        height={15}
-                        color="#36d6b4"
-                    /> 
+                    <Spin size="large" />
                 </div>
             }
 
