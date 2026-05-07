@@ -41,11 +41,13 @@ const LayoutAdmin = () => {
 
     useEffect(() => {
         const fetchMenuItems = async () => {
+            if (!isAuthenticated) return; // Only fetch if authenticated
+
             try {
                 const userId = localStorage.getItem("userId");
                 const locationIdStr = localStorage.getItem("locationId");
 
-              //  console.log('Fetching menu items with userId:', userId, 'and locationId:', locationIdStr); // Debug log
+               console.log('Fetching menu items with userId:', userId, 'and locationId:', locationIdStr); // Debug log
                 if (!userId || !locationIdStr) {
                     message.error('User not authenticated');
                     return;
@@ -55,9 +57,9 @@ const LayoutAdmin = () => {
                 const data = response.data || [];
                // console.log('Menu data fetched:', response); // Debug log
                 setMenuData(data);
- console.log('lam o day chua');
+         console.log('lam o day chua');
                 // Map API data to Ant Design MenuItem structure
-                const formatted: MenuItem[] = menuData.map((item) => ({
+                const formatted: MenuItem[] = data.map((item) => ({
                     label: item.module, // 'label' is what users see
                     key: item.moduleID.toString(), // 'key' must be a unique string
                     icon: getIcon("mail"), // Optional: Map a string to an Icon component
@@ -66,7 +68,7 @@ const LayoutAdmin = () => {
                         key: child.functionID.toString(),
                     })) : undefined,
                 }));
-
+                console.log('Toi day');
                 setFormattedItems(formatted);
             } catch (err) {
                 console.error('Failed to load menu data', err);
@@ -77,7 +79,7 @@ const LayoutAdmin = () => {
         };
 
         fetchMenuItems();
-    }, []);
+    }, [isAuthenticated]);
 
     // Optional helper to map API strings to specific Ant Design Icons
     const getIcon = (type: string) => {
