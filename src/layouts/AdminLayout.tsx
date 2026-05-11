@@ -130,16 +130,18 @@ const AdminLayout = () => {
                 width={260}
                 trigger={null}
             >
-                <div style={{ padding: '32px 24px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ 
-                        width: 40, height: 40, 
-                        background: 'var(--primary-gradient)', 
-                        borderRadius: 12,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#fff', fontWeight: 'bold', fontSize: 20,
-                        boxShadow: '0 8px 16px rgba(30, 58, 138, 0.2)'
-                    }}>K</div>
-                    {!collapsed && <Text strong style={{ fontSize: 22, letterSpacing: -1, color: '#1e3a8a' }}>KUINSOFT</Text>}
+                <div style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '104px' }}>
+                    <img 
+                        src="/images/logo.jpg" 
+                        alt="Kuinsoft Logo" 
+                        style={{ 
+                            width: collapsed ? '40px' : '100%', 
+                            maxWidth: '180px', 
+                            objectFit: 'contain', 
+                            borderRadius: '8px',
+                            transition: 'all 0.3s'
+                        }} 
+                    />
                 </div>
 
                 <div className="custom-scrollbar">

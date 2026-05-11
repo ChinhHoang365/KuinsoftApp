@@ -1,4 +1,4 @@
-import { App, Button, Form, Input, Select, Typography, Card } from 'antd';
+import { App, Button, Form, Input, Select, Typography, Card, Row, Col } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import type { FormProps } from 'antd';
@@ -68,28 +68,38 @@ const LoginPage = () => {
         }}>
             <Card
                 className="glass-effect"
+                styles={{ body: { padding: 0 } }}
                 style={{
                     width: '100%',
-                    maxWidth: 440,
+                    maxWidth: 850,
                     borderRadius: 24,
-                    padding: '24px',
+                    overflow: 'hidden',
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
                 }}
             >
-                <div style={{ textAlign: 'center', marginBottom: 40 }}>
-                    <div style={{
-                        width: 64, height: 64,
-                        background: 'var(--primary-gradient)',
-                        borderRadius: 16,
-                        margin: '0 auto 16px',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        boxShadow: '0 8px 16px rgba(99, 102, 241, 0.4)'
+                <Row>
+                    {/* BÊN TRÁI: LOGO */}
+                    <Col xs={0} md={12} style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+                        padding: '40px'
                     }}>
-                        <Title level={2} style={{ color: '#fff', margin: 0 }}>K</Title>
-                    </div>
-                    <Title level={2} style={{ margin: 0, letterSpacing: -1 }}>KUINSOFT</Title>
-                    <Text type="secondary">LOGIN</Text>
-                </div>
+                        <img 
+                            src="/images/logo.jpg" 
+                            alt="Kuinsoft Logo" 
+                            style={{ width: '100%', maxWidth: '280px', objectFit: 'contain', borderRadius: '12px' }} 
+                        />
+                    </Col>
+
+                    {/* BÊN PHẢI: FORM ĐĂNG NHẬP */}
+                    <Col xs={24} md={12} style={{ padding: '40px' }}>
+                        <div style={{ textAlign: 'center', marginBottom: 40 }}>
+                            <Title level={2} style={{ margin: 0, letterSpacing: -1 }}>KUINSOFT</Title>
+                            <Text type="secondary">LOGIN</Text>
+                        </div>
 
                 <Form
                     name="login"
@@ -152,6 +162,8 @@ const LoginPage = () => {
                         Don't have an account? <Link to="/contact" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Contact IT</Link>
                     </Text>
                 </div>
+                    </Col>
+                </Row>
             </Card>
         </div>
     )

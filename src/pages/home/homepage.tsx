@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { 
-    Row, Col, Card, Statistic, Typography, Space, 
+import {
+    Row, Col, Card, Statistic, Typography, Space,
     Avatar, Divider, Badge, Tag, Skeleton, message,
     List, Button
 } from 'antd';
-import { 
-    UserOutlined, 
-    BookOutlined, 
-    TeamOutlined, 
+import {
+    UserOutlined,
+    BookOutlined,
+    TeamOutlined,
     BankOutlined,
     EnvironmentOutlined,
     PhoneOutlined,
@@ -73,15 +73,15 @@ const HomePage: React.FC = () => {
     return (
         <div className="fade-in">
             {/* Executive Banner */}
-            <div style={{ 
-                marginBottom: 32, padding: '48px 60px', background: '#1e3a8a', 
-                borderRadius: 'var(--radius-xl)', color: '#fff', 
+            <div style={{
+                marginBottom: 32, padding: '48px 60px', background: '#1e3a8a',
+                borderRadius: 'var(--radius-xl)', color: '#fff',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 position: 'relative', overflow: 'hidden', boxShadow: '0 20px 40px rgba(30, 58, 138, 0.15)'
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 40, zIndex: 2 }}>
-                    <div style={{ 
-                        width: 100, height: 100, borderRadius: '50%', 
+                    <div style={{
+                        width: 100, height: 100, borderRadius: '50%',
                         background: 'rgba(255,255,255,0.1)', border: '2px solid rgba(255,255,255,0.2)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center'
                     }}>
@@ -172,8 +172,8 @@ const HomePage: React.FC = () => {
 
                 {/* Institutional News Sidebar */}
                 <Col xs={24} lg={7}>
-                    <Card 
-                        title={<Space><SoundOutlined /> <Text strong style={{ fontSize: 16 }}>Institutional News</Text></Space>} 
+                    <Card
+                        title={<Space><SoundOutlined /> <Text strong style={{ fontSize: 16 }}>Institutional News</Text></Space>}
                         className="premium-card"
                         extra={<Button type="default" size="small" style={{ borderRadius: 8, fontSize: 12 }}>View All</Button>}
                         styles={{ body: { padding: '0 12px' } }}
