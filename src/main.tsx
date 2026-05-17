@@ -11,6 +11,7 @@ import Login from 'pages/admin/login.tsx';
 import 'styles/global.css';  
 import News from 'pages/client/news.tsx';
 import HomePage from 'pages/home/homepage.tsx';
+import StudentSearch from 'components/admission/studentsearch.tsx';
 //import RegisterPage from 'pages/client/register.tsx';
 import { App } from 'antd';
 import { AppProvider } from 'components/context/app.context.tsx';
@@ -32,6 +33,15 @@ const router = createBrowserRouter([
             </ProtectedRoute>
           )
         },
+        {
+            path: "student-search",
+            element: 
+            (
+            <ProtectedRoute>
+              <StudentSearch /> 
+            </ProtectedRoute>
+          )
+         },
         {
             path: "/news",
             element: 

@@ -32,6 +32,10 @@ const LayoutAdmin = () => {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
     const [activeMenu, setActiveMenu] = useState('');
+    const [searchName, setSearchName] = useState('');
+    const [searchCode, setSearchCode] = useState('');
+    const [searchPhone, setSearchPhone] = useState('');
+    const [searchClassCode, setSearchClassCode] = useState('');
     const {
         userInfo, setUserInfo, setIsAuthenticated, isAuthenticated,
         setCarts
@@ -105,6 +109,19 @@ const LayoutAdmin = () => {
         localStorage.removeItem("userId");
         localStorage.removeItem("locationId");
         navigate('/login');
+    };
+
+    const handleSearch = () => {
+        const params = new URLSearchParams();
+        if (searchName.trim()) params.set('name', searchName.trim());
+        if (searchCode.trim()) params.set('code', searchCode.trim());
+        if (searchPhone.trim()) params.set('phone', searchPhone.trim());
+        if (searchClassCode.trim()) params.set('classCode', searchClassCode.trim());
+
+        navigate({
+            pathname: '/student-search',
+            search: params.toString(),
+        });
     };
 
     const itemsDropdown = [
@@ -187,11 +204,29 @@ const LayoutAdmin = () => {
                             })}
                         </span>
 
-                        <Input placeholder="Student Name" />
-                        <Input placeholder="Student Code" />
-                        <Input placeholder="Student Phone" />
-                        <Input placeholder="Class Code" />
-                        <Button type="primary" shape="circle" icon={<SearchOutlined />} />
+                        <Input
+                            placeholder="Student Name"
+                            value={searchName}
+                            onChange={(e) => setSearchName(e.target.value)}
+                        />
+                        <Input
+                            placeholder="Student Code"
+                            value={searchCode}
+                            onChange={(e) => setSearchCode(e.target.value)}
+                        />
+                        <Input
+                            placeholder="Student Phone"
+                            value={searchPhone}
+                            onChange={(e) => setSearchPhone(e.target.value)}
+                        />
+                        <Input
+                            placeholder="Class Code"
+                            value={searchClassCode}
+                            onChange={(e) => setSearchClassCode(e.target.value)}
+                        />
+                        <Button type="primary" onClick={handleSearch} icon={<SearchOutlined />}>
+                            Search
+                        </Button>
 
                         <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
                             <Space style={{ cursor: "pointer" }}>
