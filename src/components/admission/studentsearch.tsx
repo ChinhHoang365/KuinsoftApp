@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'services/axios.customize';
-import { studentSearchAPI } from 'services/admin/users.api';
+import { studentSearchAPI } from 'services/admission/students.api';
 import { Alert, Button, Modal, Pagination, Space, Spin, Table, Typography } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
