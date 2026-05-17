@@ -1,43 +1,69 @@
-import axios from '../axios.customize';
+import axios from 'services/axios.customize';
 
 // ─── NOTIFICATIONS - SEND & RECEIVE ──────────────────────────────────
-export const sendNotificationAPI = (data: any) =>
-    axios.post('/api/notification/send', data);
+export const sendNotificationAPI = (data: any) => {
+    const urlBackend = '/api/notification/send';
+    return axios.post(urlBackend, data);
+};
 
-export const receiveNotificationAPI = (data: any) =>
-    axios.post('/api/notification/receiveNoti', data);
+export const receiveNotificationAPI = (data: any) => {
+    const urlBackend = '/api/notification/receiveNoti';
+    return axios.post(urlBackend, data);
+};
 
-export const deleteReceivedNotificationAPI = (id: number) =>
-    axios.delete(`/api/notification/receiveNoti?id=${id}`);
+export const deleteReceivedNotificationAPI = (id: number) => {
+    const urlBackend = `/api/notification/receiveNoti?id=${id}`;
+    return axios.delete(urlBackend);
+};
 
-export const directNotificationToScheduleAPI = (data: any) =>
-    axios.post('/api/notification/NotificationDirectToSchedule', data);
+export const directNotificationToScheduleAPI = (data: any) => {
+    const urlBackend = '/api/notification/NotificationDirectToSchedule';
+    return axios.post(urlBackend, data);
+};
 
 // ─── NOTIFICATIONS - USER INBOX ──────────────────────────────────────
-export const getNotiListByUserAPI = (params?: any) =>
-    axios.get('/api/notification/getNotiListByUser', { params });
+export const getNotiListByUserAPI = (params?: any) => {
+    const urlBackend = '/api/notification/getNotiListByUser';
+    return axios.get(urlBackend, { params });
+};
 
-export const getNotiListByCategoryAPI = (category: string) =>
-    axios.get(`/api/notification/getlistByCategory?category=${category}`);
+export const getNotiListByCategoryAPI = (category: string) => {
+    const urlBackend = `/api/notification/getlistByCategory?category=${category}`;
+    return axios.get(urlBackend);
+};
 
-export const listNotiCategoriesAPI = () =>
-    axios.get('/api/notification/ListCategory');
+export const listNotiCategoriesAPI = () => {
+    const urlBackend = '/api/notification/ListCategory';
+    return axios.get(urlBackend);
+};
 
-export const readANotificationAPI = (id: number) =>
-    axios.put(`/api/notification/ReadANoti?id=${id}`);
+export const readANotificationAPI = (id: number) => {
+    const urlBackend = `/api/notification/ReadANoti?id=${id}`;
+    return axios.put(urlBackend);
+};
 
-export const readAllNotificationsAPI = () =>
-    axios.put('/api/notification/ReadAllNoti');
+export const readAllNotificationsAPI = () => {
+    const urlBackend = '/api/notification/ReadAllNoti';
+    return axios.put(urlBackend);
+};
 
-export const countUnreadNotificationsAPI = () =>
-    axios.put('/api/notification/CountUnread');
+export const countUnreadNotificationsAPI = () => {
+    const urlBackend = '/api/notification/CountUnread';
+    return axios.put(urlBackend);
+};
 
 // ─── NOTIFICATIONS - DEVICE MANAGEMENT ───────────────────────────────
-export const getRegisteredDevicesAPI = () =>
-    axios.get('/api/notification/GetRegisteredDevices');
+export const getRegisteredDevicesAPI = () => {
+    const urlBackend = '/api/notification/GetRegisteredDevices';
+    return axios.get(urlBackend);
+};
 
-export const registerDeviceAPI = (data: any) =>
-    axios.post('/api/notification/register', data);
+export const registerDeviceAPI = (data: any) => {
+    const urlBackend = '/api/notification/register';
+    return axios.post(urlBackend, data);
+};
 
-export const unregisterDeviceAPI = (token: string) =>
-    axios.delete(`/api/notification/unregister?token=${token}`);
+export const unregisterDeviceAPI = (token: string) => {
+    const urlBackend = `/api/notification/unregister?token=${token}`;
+    return axios.delete(urlBackend);
+};

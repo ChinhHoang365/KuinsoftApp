@@ -1,4 +1,4 @@
-import axios from '../axios.customize';
+import axios from 'services/axios.customize';
 
 // ─── CENTER DETAILS ──────────────────────────────────────────────────────
 
@@ -6,28 +6,43 @@ import axios from '../axios.customize';
  * Lấy thông tin chi tiết của một trung tâm
  */
 export const getCenterDetails = (centerID: number) => 
-    axios.get(`/api/CenterDetails?centerID=${centerID}`);
+{
+    const urlBackend = `/api/CenterDetails?centerID=${centerID}`;
+    return axios.get(urlBackend);
+};
 
 /**
  * Lấy danh sách tất cả các trung tâm
  */
 export const getCentersList = () => 
-    axios.get('/api/CenterDetails/Centers');
+{
+    const urlBackend = '/api/CenterDetails/Centers';
+    return axios.get(urlBackend);
+};
 
 /**
  * Lấy danh sách người dùng theo vai trò tại trung tâm
  */
 export const getUserByRole = (locationID: number, groupID: number) => 
-    axios.get(`/api/CenterDetails/UserByRole?locationID=${locationID}&groupID=${groupID}`);
+{
+    const urlBackend = `/api/CenterDetails/UserByRole?locationID=${locationID}&groupID=${groupID}`;
+    return axios.get(urlBackend);
+};
 
 /**
  * Lấy danh sách các chức năng (Functions)
  */
 export const getCenterFunctions = () => 
-    axios.get('/api/CenterDetails/Functions');
+{
+    const urlBackend = '/api/CenterDetails/Functions';
+    return axios.get(urlBackend);
+};
 
 /**
  * Lấy danh sách chức năng theo nhóm (Group Function)
  */
 export const getGroupFunctions = (groupID: number) => 
-    axios.get(`/api/CenterDetails/Functions/GroupFunction?groupID=${groupID}`);
+{
+    const urlBackend = `/api/CenterDetails/Functions/GroupFunction?groupID=${groupID}`;
+    return axios.get(urlBackend);
+};

@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import type { FormProps } from 'antd';
 import { loginAPI } from 'services/modules/admin';
-import { useCurrentApp } from 'context';
+import { useCurrentApp } from 'components/context';
 import { UserOutlined, LockOutlined, EnvironmentOutlined, ArrowRightOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
@@ -40,6 +40,7 @@ const LoginPage = () => {
                 localStorage.setItem('username', userInfo.userName || username);
                 if (userInfo.userID) localStorage.setItem('userId', userInfo.userID.toString());
                 localStorage.setItem('locationId', locationId.toString());
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
                 message.success('Welcome back, ' + (userInfo.fullName || username));
                 navigate('/admin');
             } else {

@@ -1,33 +1,53 @@
-import axios from '../axios.customize';
+import axios from 'services/axios.customize';
 
 // ─── APPOINTMENTS & TASKS ───────────────────────────────────────────
-export const addAppointmentAPI = (data: any) =>
-    axios.post('/api/Task/Appointment_Add', data);
+export const addAppointmentAPI = (data: any) => {
+    const urlBackend = '/api/Task/Appointment_Add';
+    return axios.post(urlBackend, data);
+};
 
-export const updateAppointmentAPI = (data: any) =>
-    axios.put('/api/Task/Appointment_Update', data);
+export const updateAppointmentAPI = (data: any) => {
+    const urlBackend = '/api/Task/Appointment_Update';
+    return axios.put(urlBackend, data);
+};
 
-export const deleteAppointmentAPI = (id: number) =>
-    axios.delete(`/api/Task/Appointment_Delete?id=${id}`);
+export const deleteAppointmentAPI = (id: number) => {
+    const urlBackend = `/api/Task/Appointment_Delete?id=${id}`;
+    return axios.delete(urlBackend);
+};
 
-export const getAppointmentByIDAPI = (id: number) =>
-    axios.get(`/api/Task/AppointmentByID?id=${id}`);
+export const getAppointmentByIDAPI = (id: number) => {
+    const urlBackend = `/api/Task/AppointmentByID?id=${id}`;
+    return axios.get(urlBackend);
+};
 
-export const getAppointmentByTeacherAPI = (teacherID: number) =>
-    axios.get(`/api/Task/AppointmentByTeacherID?teacherID=${teacherID}`);
+export const getAppointmentByTeacherAPI = (teacherID: number) => {
+    const urlBackend = `/api/Task/AppointmentByTeacherID?teacherID=${teacherID}`;
+    return axios.get(urlBackend);
+};
 
 // ─── MASTER DATA & LISTS ─────────────────────────────────────────────
-export const getAppointmentVisibilitiesAPI = () =>
-    axios.get('/api/Task/APPOINTMENTVISIBILITES_List');
+export const getAppointmentVisibilitiesAPI = () => {
+    const urlBackend = '/api/Task/APPOINTMENTVISIBILITES_List';
+    return axios.get(urlBackend);
+};
 
-export const getTaskPrioritiesAPI = () =>
-    axios.get('/api/Task/APPOINTMENTTASKPRIORITIES_List');
+export const getTaskPrioritiesAPI = () => {
+    const urlBackend = '/api/Task/APPOINTMENTTASKPRIORITIES_List';
+    return axios.get(urlBackend);
+};
 
-export const getTaskFrequenciesAPI = () =>
-    axios.get('/api/Task/APPOINTMENTFREQUENCYOCCURS_List');
+export const getTaskFrequenciesAPI = () => {
+    const urlBackend = '/api/Task/APPOINTMENTFREQUENCYOCCURS_List';
+    return axios.get(urlBackend);
+};
 
-export const getAppointmentCategoriesAPI = () =>
-    axios.get('/api/Task/APPOINTMENTCATEGORIES_List');
+export const getAppointmentCategoriesAPI = () => {
+    const urlBackend = '/api/Task/APPOINTMENTCATEGORIES_List';
+    return axios.get(urlBackend);
+};
 
-export const getTeacherGroupByTeacherIDAPI = (teacherID: number) =>
-    axios.get(`/api/Task/TeacherGroupByTeacherID?teacherID=${teacherID}`);
+export const getTeacherGroupByTeacherIDAPI = (teacherID: number) => {
+    const urlBackend = `/api/Task/TeacherGroupByTeacherID?teacherID=${teacherID}`;
+    return axios.get(urlBackend);
+};

@@ -37,6 +37,10 @@ export const AppProvider = (props: TProps) => {
                 return;
             }
 
+
+            setIsAuthenticated(true);
+            setUserInfo({ userName: username, fullName: username } as any);
+
             try {
                 const res = await userSearchAPI(username);
                 const carts = localStorage.getItem("carts");
@@ -65,7 +69,7 @@ export const AppProvider = (props: TProps) => {
         <>
             {isAppLoading === false ?
                 <CurrentAppContext.Provider value={{
-                    isAuthenticated,userInfo, setIsAuthenticated, setUserInfo: setUserInfo,
+                    isAuthenticated, userInfo, setIsAuthenticated, setUserInfo: setUserInfo,
                     isAppLoading, setIsAppLoading,
                     carts, setCarts
                 }}>

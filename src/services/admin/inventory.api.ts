@@ -1,35 +1,57 @@
-import axios from '../axios.customize';
+import axios from 'services/axios.customize';
 
 // ─── INVENTORY - BOOK STORAGE ────────────────────────────────────────
-export const getInventoryDetailByPOAPI = (params?: any) =>
-    axios.get('/api/BookStorage/getInventoryDetailByPO', { params });
+export const getInventoryDetailByPOAPI = (params?: any) => {
+    const urlBackend = '/api/BookStorage/getInventoryDetailByPO';
+    return axios.get(urlBackend, { params });
+};
 
-export const getInventoryItemStatementAPI = (params?: any) =>
-    axios.get('/api/BookStorage/getInventoryItemStatement', { params });
+export const getInventoryItemStatementAPI = (params?: any) => {
+    const urlBackend = '/api/BookStorage/getInventoryItemStatement';
+    return axios.get(urlBackend, { params });
+};
 
-export const getCashDetailByProductAPI = (params?: any) =>
-    axios.get('/api/BookStorage/getCashDetailByProduct', { params });
+export const getCashDetailByProductAPI = (params?: any) => {
+    const urlBackend = '/api/BookStorage/getCashDetailByProduct';
+    return axios.get(urlBackend, { params });
+};
 
-export const getTransferDataAPI = (params?: any) =>
-    axios.get('/api/BookStorage/getTransferData', { params });
+export const getTransferDataAPI = (params?: any) => {
+    const urlBackend = '/api/BookStorage/getTransferData';
+    return axios.get(urlBackend, { params });
+};
 
-export const getTransferDataByNbrAPI = (nbr: string) =>
-    axios.get(`/api/BookStorage/getTransferDataByNbr?nbr=${nbr}`);
+export const getTransferDataByNbrAPI = (nbr: string) => {
+    const urlBackend = `/api/BookStorage/getTransferDataByNbr?nbr=${nbr}`;
+    return axios.get(urlBackend);
+};
 
-export const getCourseMaterialCheckListAPI = (params?: any) =>
-    axios.get('/api/BookStorage/getCourseMaterialCheckList', { params });
+export const getCourseMaterialCheckListAPI = (params?: any) => {
+    const urlBackend = '/api/BookStorage/getCourseMaterialCheckList';
+    return axios.get(urlBackend, { params });
+};
 
-export const getCourseMaterialDeliveryByStudentAPI = (params?: any) =>
-    axios.get('/api/BookStorage/getCourseMaterialDeliveryByStudent', { params });
+export const getCourseMaterialDeliveryByStudentAPI = (params?: any) => {
+    const urlBackend = '/api/BookStorage/getCourseMaterialDeliveryByStudent';
+    return axios.get(urlBackend, { params });
+};
 
-export const updateBookStorageStatusAPI = (data: any) =>
-    axios.post('/api/BookStorage/updateStatus', data);
+export const updateBookStorageStatusAPI = (data: any) => {
+    const urlBackend = '/api/BookStorage/updateStatus';
+    return axios.post(urlBackend, data);
+};
 
-export const getClassMaterialStatusAPI = (params?: any) =>
-    axios.get('/api/BookStorage/getClassMaterialStatus', { params });
+export const getClassMaterialStatusAPI = (params?: any) => {
+    const urlBackend = '/api/BookStorage/getClassMaterialStatus';
+    return axios.get(urlBackend, { params });
+};
 
-export const getClassMaterialStatusByProductAPI = (params?: any) =>
-    axios.get('/api/BookStorage/getClassMaterialStatusByProduct', { params });
+export const getClassMaterialStatusByProductAPI = (params?: any) => {
+    const urlBackend = '/api/BookStorage/getClassMaterialStatusByProduct';
+    return axios.get(urlBackend, { params });
+};
 
-export const exportMaterialDataInClassAPI = (params?: any) =>
-    axios.get('/api/BookStorage/ExportMaterialDataInClass', { params });
+export const exportMaterialDataInClassAPI = (params?: any) => {
+    const urlBackend = '/api/BookStorage/ExportMaterialDataInClass';
+    return axios.get(urlBackend, { params });
+};

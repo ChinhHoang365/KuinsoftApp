@@ -1,23 +1,37 @@
-import axios from '../axios.customize';
+import axios from 'services/axios.customize';
 
 // ─── CRONJOBS - AUTOMATION ──────────────────────────────────────────
-export const scheduleCronjobAPI = (data: any) =>
-    axios.post('/api/Cronjob/schedule', data);
+export const scheduleCronjobAPI = (data: any) => {
+    const urlBackend = '/api/Cronjob/schedule';
+    return axios.post(urlBackend, data);
+};
 
-export const cleanUpPushDevicesAPI = () =>
-    axios.get('/api/Cronjob/CleanUpPushDevices');
+export const cleanUpPushDevicesAPI = () => {
+    const urlBackend = '/api/Cronjob/CleanUpPushDevices';
+    return axios.get(urlBackend);
+};
 
-export const setupHourlyAnnouncementAPI = () =>
-    axios.get('/api/Cronjob/SetupHourlyScheduleAnouncement');
+export const setupHourlyAnnouncementAPI = () => {
+    const urlBackend = '/api/Cronjob/SetupHourlyScheduleAnouncement';
+    return axios.get(urlBackend);
+};
 
-export const sendNotificationAnnouncementAPI = () =>
-    axios.get('/api/Cronjob/SendNotificationAnouncementAsync');
+export const sendNotificationAnnouncementAPI = () => {
+    const urlBackend = '/api/Cronjob/SendNotificationAnouncementAsync';
+    return axios.get(urlBackend);
+};
 
-export const setupDailyScheduleAPI = () =>
-    axios.get('/api/Cronjob/SetupDailySchedule');
+export const setupDailyScheduleAPI = () => {
+    const urlBackend = '/api/Cronjob/SetupDailySchedule';
+    return axios.get(urlBackend);
+};
 
-export const setupDailyNewsTidyUpAPI = () =>
-    axios.get('/api/Cronjob/SetupDailyNewsTidyUp');
+export const setupDailyNewsTidyUpAPI = () => {
+    const urlBackend = '/api/Cronjob/SetupDailyNewsTidyUp';
+    return axios.get(urlBackend);
+};
 
-export const sendNotificationAsyncAPI = () =>
-    axios.get('/api/Cronjob/SendNotificationAsync');
+export const sendNotificationAsyncAPI = () => {
+    const urlBackend = '/api/Cronjob/SendNotificationAsync';
+    return axios.get(urlBackend);
+};

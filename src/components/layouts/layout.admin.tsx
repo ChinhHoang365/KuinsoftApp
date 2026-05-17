@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
     AppstoreOutlined,
     TeamOutlined,
     UserOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    SearchOutlined,
     SettingOutlined,
     ReadOutlined,
     MoneyCollectOutlined,
@@ -19,7 +18,7 @@ import {
 import { Layout, Menu, Dropdown, Space, Avatar, Input, Button, Typography, Badge } from 'antd';
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import { useCurrentApp } from 'context/AppContext';
+import { useCurrentApp } from './components/context/app.context';
 import type { MenuProps } from 'antd';
 
 const { Content, Sider } = Layout;
@@ -27,7 +26,7 @@ const { Text } = Typography;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-const AdminLayout = () => {
+const LayoutAdmin = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [collapsed, setCollapsed] = useState(false);
@@ -107,16 +106,16 @@ const AdminLayout = () => {
         }
     ];
 
-    const itemsDropdown = [
+    const itemsDropdown: MenuItem[] = [
         { label: 'My Profile', key: 'profile', icon: <UserOutlined /> },
         { label: 'Switch Center', key: 'center', icon: <UserSwitchOutlined /> },
-        { type: 'divider' },
-        { 
-            label: 'Logout', 
-            key: 'logout', 
-            icon: <LogoutOutlined />, 
-            danger: true, 
-            onClick: handleLogout 
+        { type: 'divider' as const },
+        {
+            label: 'Logout',
+            key: 'logout',
+            icon: <LogoutOutlined />,
+            danger: true,
+            onClick: handleLogout
         },
     ];
 
@@ -131,16 +130,16 @@ const AdminLayout = () => {
                 trigger={null}
             >
                 <div style={{ padding: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '104px' }}>
-                    <img 
-                        src="/images/logo.jpg" 
-                        alt="Kuinsoft Logo" 
-                        style={{ 
-                            width: collapsed ? '40px' : '100%', 
-                            maxWidth: '180px', 
-                            objectFit: 'contain', 
+                    <img
+                        src="/images/logo.jpg"
+                        alt="Kuinsoft Logo"
+                        style={{
+                            width: collapsed ? '40px' : '100%',
+                            maxWidth: '180px',
+                            objectFit: 'contain',
                             borderRadius: '8px',
                             transition: 'all 0.3s'
-                        }} 
+                        }}
                     />
                 </div>
 
@@ -155,33 +154,50 @@ const AdminLayout = () => {
 
             <Layout style={{ background: 'transparent' }}>
                 <div className="premium-header">
-                    <Space size={24}>
-                        <Button 
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flex: 1, marginRight: '32px' }}>
+                        <Button
                             type="text"
                             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                             onClick={() => setCollapsed(!collapsed)}
                             style={{ fontSize: '18px', background: '#fff', borderRadius: 12, width: 45, height: 45, boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}
                         />
-                        <Input 
-                            className="premium-search"
-                            placeholder="Search Students, Staff, and Resources" 
-                            prefix={<SearchOutlined style={{ color: '#94a3b8', marginRight: 8 }} />} 
-                        />
-                    </Space>
+                        <div style={{ display: 'flex', gap: '12px', flex: 1 }}>
+                            <Input.Search
+                                placeholder="Center..."
+                                style={{ flex: 1 }}
+                                onSearch={(value) => value && navigate(`/search/center?q=${encodeURIComponent(value)}`)}
+                            />
+                            <Input.Search
+                                placeholder="Student..."
+                                style={{ flex: 1 }}
+                                onSearch={(value) => value && navigate(`/admin/students?query=${encodeURIComponent(value)}`)}
+                            />
+                            <Input.Search
+                                placeholder="Class..."
+                                style={{ flex: 1 }}
+                                onSearch={(value) => value && navigate(`/admin/classes?query=${encodeURIComponent(value)}`)}
+                            />
+                            <Input.Search
+                                placeholder="Teacher..."
+                                style={{ flex: 1 }}
+                                onSearch={(value) => value && navigate(`/search/teacher?q=${encodeURIComponent(value)}`)}
+                            />
+                        </div>
+                    </div>
 
                     <Space size={20}>
                         <Badge dot color="#f43f5e" offset={[-4, 4]}>
-                            <Button 
-                                type="text" 
-                                icon={<NotificationOutlined />} 
-                                style={{ background: '#fff', borderRadius: 12, width: 45, height: 45, boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }} 
+                            <Button
+                                type="text"
+                                icon={<NotificationOutlined />}
+                                style={{ background: '#fff', borderRadius: 12, width: 45, height: 45, boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}
                             />
                         </Badge>
-                        
+
                         <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
-                            <div style={{ 
-                                cursor: "pointer", padding: '4px 16px 4px 8px', borderRadius: 16, background: '#fff', 
-                                display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 4px 12px rgba(0,0,0,0.03)' 
+                            <div style={{
+                                cursor: "pointer", padding: '4px 16px 4px 8px', borderRadius: 16, background: '#fff',
+                                display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
                             }}>
                                 <Avatar size={36} icon={<UserOutlined />} style={{ backgroundColor: '#10b981' }} />
                                 <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
@@ -204,4 +220,4 @@ const AdminLayout = () => {
     );
 };
 
-export default AdminLayout;
+export default LayoutAdmin;

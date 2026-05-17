@@ -1,23 +1,44 @@
-import axios from '../axios.customize';
+import axios from 'services/axios.customize';
 
 // ─── NEWS - ADMINISTRATION ───────────────────────────────────────────
 export const getAdminNewsListAPI = (params?: any) =>
-    axios.get('/api/News/Admin/NewsList', { params });
+{
+    const urlBackend = '/api/News/Admin/NewsList';
+    return axios.get(urlBackend, { params });
+};
 
 export const getUserNewsListAPI = (params?: any) =>
-    axios.get('/api/News/User/NewsList', { params });
+{
+    const urlBackend = '/api/News/User/NewsList';
+    return axios.get(urlBackend, { params });
+};
 
 export const getNewsDetailAPI = (newsID: number) =>
-    axios.get(`/api/News/NewsDetail?newsID=${newsID}`);
+{
+    const urlBackend = `/api/News/NewsDetail?newsID=${newsID}`;
+    return axios.get(urlBackend);
+};
 
 export const createNewsAPI = (data: any) =>
-    axios.post('/api/News/CreateNews', data);
+{
+    const urlBackend = '/api/News/CreateNews';
+    return axios.post(urlBackend, data);
+};
 
 export const updateNewsAPI = (data: any) =>
-    axios.put('/api/News/UpdateNews', data);
+{
+    const urlBackend = '/api/News/UpdateNews';
+    return axios.put(urlBackend, data);
+};
 
 export const deleteNewsAPI = (newsID: number) =>
-    axios.delete(`/api/News/DeleteNews?newsID=${newsID}`);
+{
+    const urlBackend = `/api/News/DeleteNews?newsID=${newsID}`;
+    return axios.delete(urlBackend);
+};
 
 export const tidyUpNewsContentAPI = () =>
-    axios.get('/api/News/TidyUpContent');
+{
+    const urlBackend = '/api/News/TidyUpContent';
+    return axios.get(urlBackend);
+};

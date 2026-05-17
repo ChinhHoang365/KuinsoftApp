@@ -1,46 +1,74 @@
-import axios from '../axios.customize';
+import axios from 'services/axios.customize';
 
 // ─── RECORDING CATEGORIES ───────────────────────────────────────────
-export const addRecordCategoryAPI = (data: any) =>
-    axios.post('/api/Recording/RecordCategory_Add', data);
+export const addRecordCategoryAPI = (data: any) => {
+    const urlBackend = '/api/Recording/RecordCategory_Add';
+    return axios.post(urlBackend, data);
+};
 
-export const updateRecordCategoryAPI = (data: any) =>
-    axios.put('/api/Recording/RecordCategory_Update', data);
+export const updateRecordCategoryAPI = (data: any) => {
+    const urlBackend = '/api/Recording/RecordCategory_Update';
+    return axios.put(urlBackend, data);
+};
 
-export const deleteRecordCategoryAPI = (id: number) =>
-    axios.delete(`/api/Recording/RecordCategory_Delete?id=${id}`);
+export const deleteRecordCategoryAPI = (id: number) => {
+    const urlBackend = `/api/Recording/RecordCategory_Delete?id=${id}`;
+    return axios.delete(urlBackend);
+};
 
-export const getRecordCategoryByIDAPI = (id: number) =>
-    axios.get(`/api/Recording/RecordCategoryByID?id=${id}`);
+export const getRecordCategoryByIDAPI = (id: number) => {
+    const urlBackend = `/api/Recording/RecordCategoryByID?id=${id}`;
+    return axios.get(urlBackend);
+};
 
-export const getRecordCategoryListAPI = () =>
-    axios.get('/api/Recording/RecordCategoryList');
+export const getRecordCategoryListAPI = () => {
+    const urlBackend = '/api/Recording/RecordCategoryList';
+    return axios.get(urlBackend);
+};
 
-export const getRecordCategoryByClassAPI = (classID: number) =>
-    axios.get(`/api/Recording/RecordCategoryByClassID?classID=${classID}`);
+export const getRecordCategoryByClassAPI = (classID: number) => {
+    const urlBackend = `/api/Recording/RecordCategoryByClassID?classID=${classID}`;
+    return axios.get(urlBackend);
+};
 
 // ─── STUDENT RECORDINGS ─────────────────────────────────────────────
-export const addStudentRecordingAPI = (data: any) =>
-    axios.post('/api/Recording/StudentRecording_Add', data);
+export const addStudentRecordingAPI = (data: any) => {
+    const urlBackend = '/api/Recording/StudentRecording_Add';
+    return axios.post(urlBackend, data);
+};
 
-export const updateStudentRecordingAPI = (data: any) =>
-    axios.put('/api/Recording/StudentRecording_Update', data);
+export const updateStudentRecordingAPI = (data: any) => {
+    const urlBackend = '/api/Recording/StudentRecording_Update';
+    return axios.put(urlBackend, data);
+};
 
-export const updateRecordingCommentAPI = (data: any) =>
-    axios.put('/api/Recording/comment_Update', data);
+export const updateRecordingCommentAPI = (data: any) => {
+    const urlBackend = '/api/Recording/comment_Update';
+    return axios.put(urlBackend, data);
+};
 
-export const deleteStudentRecordingAPI = (id: number) =>
-    axios.delete(`/api/Recording/StudentRecording_Delete?id=${id}`);
+export const deleteStudentRecordingAPI = (id: number) => {
+    const urlBackend = `/api/Recording/StudentRecording_Delete?id=${id}`;
+    return axios.delete(urlBackend);
+};
 
-export const getStudentRecordingByIDAPI = (id: number) =>
-    axios.get(`/api/Recording/StudentRecordingByID?id=${id}`);
+export const getStudentRecordingByIDAPI = (id: number) => {
+    const urlBackend = `/api/Recording/StudentRecordingByID?id=${id}`;
+    return axios.get(urlBackend);
+};
 
-export const getStudentRecordingByClassAPI = (classID: number) =>
-    axios.get(`/api/Recording/StudentRecordingByClassID?classID=${classID}`);
+export const getStudentRecordingByClassAPI = (classID: number) => {
+    const urlBackend = `/api/Recording/StudentRecordingByClassID?classID=${classID}`;
+    return axios.get(urlBackend);
+};
 
-export const getStudentRecordingByClassAndStudentAPI = (classID: number, studentID: number) =>
-    axios.get(`/api/Recording/StudentRecordingByClassIDByStudentID?classID=${classID}&studentID=${studentID}`);
+export const getStudentRecordingByClassAndStudentAPI = (classID: number, studentID: number) => {
+    const urlBackend = `/api/Recording/StudentRecordingByClassIDByStudentID?classID=${classID}&studentID=${studentID}`;
+    return axios.get(urlBackend);
+};
 
 // ─── CLASS RECORDINGS ───────────────────────────────────────────────
-export const getClassRecordingByDateAPI = (date: string) =>
-    axios.get(`/api/Recording/ClassRecordingByDate?date=${date}`);
+export const getClassRecordingByDateAPI = (date: string) => {
+    const urlBackend = `/api/Recording/ClassRecordingByDate?date=${date}`;
+    return axios.get(urlBackend);
+};

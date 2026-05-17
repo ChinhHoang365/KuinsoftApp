@@ -1,8 +1,23 @@
-import axios from '../axios.customize';
+import axios from 'services/axios.customize';
 
 // ─── CENTER DETAILS ───────────────────────────────────────────────────
-export const getCentersAPI = () => axios.get('/api/CenterDetails/Centers');
-export const getCenterDetailAPI = (centerID: number) => axios.get(`/api/CenterDetails?centerID=${centerID}`);
-export const getUserByRoleAPI = (centerID: number, roleID: number) => axios.get(`/api/CenterDetails/UserByRole?centerID=${centerID}&roleID=${roleID}`);
-export const getFunctionsAPI = () => axios.get('/api/CenterDetails/Functions');
-export const getGroupFunctionAPI = (roleID: number) => axios.get(`/api/CenterDetails/Functions/GroupFunction?roleID=${roleID}`);
+export const getCentersAPI = () => {
+    const urlBackend = '/api/CenterDetails/Centers';
+    return axios.get(urlBackend);
+};
+export const getCenterDetailAPI = (centerID: number) => {
+    const urlBackend = `/api/CenterDetails?centerID=${centerID}`;
+    return axios.get(urlBackend);
+};
+export const getUserByRoleAPI = (centerID: number, roleID: number) => {
+    const urlBackend = `/api/CenterDetails/UserByRole?centerID=${centerID}&roleID=${roleID}`;
+    return axios.get(urlBackend);
+};
+export const getFunctionsAPI = () => {
+    const urlBackend = '/api/CenterDetails/Functions';
+    return axios.get(urlBackend);
+};
+export const getGroupFunctionAPI = (roleID: number) => {
+    const urlBackend = `/api/CenterDetails/Functions/GroupFunction?roleID=${roleID}`;
+    return axios.get(urlBackend);
+};

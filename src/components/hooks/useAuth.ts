@@ -1,4 +1,4 @@
-import { useCurrentApp } from 'context';
+import { useCurrentApp } from 'components/context';
 
 /**
  * Hook for authentication

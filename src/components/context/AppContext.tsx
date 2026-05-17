@@ -30,6 +30,7 @@ export const AppProvider = (props: TProps) => {
         const fetchAccount = async () => {
             const token = localStorage.getItem("token");
             const username = localStorage.getItem("username");
+            const storedUserInfo = localStorage.getItem("userInfo");
 
             // Skip API call if not logged in
             if (!token || !username) {
@@ -37,25 +38,26 @@ export const AppProvider = (props: TProps) => {
                 return;
             }
 
-            try {
-                const res = await userSearchAPI(username);
-                const carts = localStorage.getItem("carts");
-                if (res) {
-                    // Handle both response formats
-                    const userData = res.userInfo || res;
-                    if (userData) {
-                        setUserInfo(userData);
-                        setIsAuthenticated(true);
-                    }
-                    if (carts) {
-                        setCarts(JSON.parse(carts));
-                    }
+            // Khôi phục trạng thái đăng nhập ngay lập tức từ localStorage
+            setIsAuthenticated(true);
+            if (storedUserInfo) {
+                try {
+                    setUserInfo(JSON.parse(storedUserInfo));
+                } catch {
+                    setUserInfo({ userName: username, fullName: username } as any);
                 }
-            } catch (error) {
-                console.error("Failed to fetch user info", error);
-            } finally {
-                setIsAppLoading(false);
+            } else {
+                setUserInfo({ userName: username, fullName: username } as any);
             }
+
+            const carts = localStorage.getItem("carts");
+            if (carts) {
+                try {
+                    setCarts(JSON.parse(carts));
+                } catch {}
+            }
+            
+            setIsAppLoading(false);
         }
 
         fetchAccount();

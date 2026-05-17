@@ -1,11 +1,12 @@
-import axios from '../axios.customize';
+import axios from 'services/axios.customize';
 
 /**
  * Upload images to server and get URLs
  * @param files Array of file objects or base64 strings as per API spec
  */
 export const uploadImageAPI = (objFile: string[]) => {
-    return axios.post('/api/UploadFile/UrlImage', { objFile });
+    const urlBackend = '/api/UploadFile/UrlImage';
+    return axios.post(urlBackend, { objFile });
 };
 
 /**
